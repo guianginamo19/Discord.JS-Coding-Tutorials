@@ -5,9 +5,28 @@ const bot = new Discord.Client({disableEveryone: true});
 
 bot.on("guildMemberAdd", member => {
     const welcomeChannel = member.guild.channels.cache.find(channel => channel.name === 'welcome')
-    welcomeChannel.send (`Welcome! ${member}`)
+    welcomeChannel.send ({embed: {
+    color: 3447003,
+    title: "Join",
+    description: `Welcome! <@${member.user.id}>`,
+    footer: {
+       text: "Someone Join The Server"
+       }
+     }
+   })
 })
-
+bot.on("guildMemberRemove", member => {
+    const welcomeChannel = member.guild.channels.cache.find(channel = channel.name === 'welcome')
+    welcomeChannel.send({embed: {
+    color: 15158332,
+    title: "Leave",
+    description: `Goodbye ${member.id}`,
+    footer: {
+      text: "Someone Left Us"
+      }
+    }
+  })
+})
 require("./util/eventHandler")(bot)
 
 const fs = require("fs");
